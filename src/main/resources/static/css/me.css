@@ -5,25 +5,9 @@ body {
 }
 .index-bg{
     background: url("/images/bg4.jpg");
+    background-attachment:fixed;
     background-size: cover;
 }
-.type-bg{
-    background: url("/images/index.jpg");
-    background-size: cover;
-}
-.tag-bg{
-    background: url("/images/bg1.jpeg");
-    background-size: cover;
-}
-.archives-bg{
-    background: url("/images/bg6.jpg");
-    background-size: cover;
-}
-.aboutme-bg{
-    background: url("/images/bg9.jpg");
-    background-size: cover;
-}
-
 
 .m-padded-mini {
     padding: 0.2em !important;

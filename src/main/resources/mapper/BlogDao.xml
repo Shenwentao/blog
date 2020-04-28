@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blog.dao.BlogDao">
 
-    <resultMap id="blog" type="Blog">
+    <resultMap id="blog" type="com.blog.pojo.Blog">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
@@ -23,18 +23,18 @@
         <result property="typeId" column="type_id"/>
         <result property="userId" column="user_id"/>
         <result property="tagIds" column="tag_ids"/>
-        <association property="type" javaType="Type">
+        <association property="type" javaType="com.blog.pojo.Type">
             <id property="id" column="typeid"/>
             <result property="name" column="typename"/>
         </association>
-        <association property="user" javaType="User">
+        <association property="user" javaType="com.blog.pojo.User">
             <id property="id" column="uid"/>
             <result property="nickname" column="nickname"/>
             <result property="username" column="username"/>
             <result property="email" column="email"/>
             <result property="avatar" column="avatar"/>
         </association>
-        <collection property="tags" ofType="Tag">
+        <collection property="tags" ofType="com.blog.pojo.Tag">
             <id property="id" column="tagid"/>
             <result property="name" column="tagname"/>
         </collection>
@@ -107,7 +107,7 @@
         order by b.update_time desc
     </select>
 
-    <select id="searchAllBlog" parameterType="Blog" resultMap="blog">
+    <select id="searchAllBlog" parameterType="com.blog.pojo.Blog" resultMap="blog">
         <bind name="pattern" value="'%' + title + '%'" />    /*模糊查询*/
         select b.id, b.title, b.update_time, b.recommend, b.published, b.type_id, t.id, t.name
         from t_blog b ,t_type t
@@ -127,7 +127,7 @@
         </where>
     </select>
 
-    <update id="updateBlog" parameterType="Blog">
+    <update id="updateBlog" parameterType="com.blog.pojo.Blog">
         update t_blog set published = #{published},flag = #{flag} ,
         title = #{title}, content = #{content}, type_id = #{typeId}, tag_ids = #{tagIds},
         first_picture = #{firstPicture} , description = #{description} , recommend = #{recommend} ,
@@ -138,7 +138,7 @@
     <!--useGeneratedKeys="true"；使用自增主键获取主键值策略
         keyProperty；指定对应的主键属性，也就是mybatis获取到主键值以后，将这个值封装给javaBean的哪个属性
     -->
-    <insert id="saveBlog" parameterType="Blog" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveBlog" parameterType="com.blog.pojo.Blog" useGeneratedKeys="true" keyProperty="id">
         insert into t_blog (title, content, first_picture, flag,
         views, appreciation, share_statement, commentabled,published,
         recommend, create_time, update_time, type_id, tag_ids, user_id, description)
@@ -147,7 +147,7 @@
         #{updateTime}, #{typeId}, #{tagIds}, #{userId}, #{description});
     </insert>
 
-    <insert id="saveBlogAndTag" parameterType="BlogAndTag">
+    <insert id="saveBlogAndTag" parameterType="com.blog.pojo.BlogAndTag">
         insert into t_blog_tags (tag_id, blog_id) values (#{tagId},#{blogId});
     </insert>
 

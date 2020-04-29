@@ -3621,3 +3621,10 @@ Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations al
 2020-04-28 15:31:48.302  INFO 8160 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2020-04-28 15:31:48.302  INFO 8160 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2020-04-28 15:31:48.307  INFO 8160 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-04-28 16:13:25.098  INFO 4200 --- [main] com.blog.BlogApplicationTests            : Starting BlogApplicationTests on 20200104-194256 with PID 4200 (started by Administrator in E:\Project\blog)
+2020-04-28 16:13:25.099 DEBUG 4200 --- [main] com.blog.BlogApplicationTests            : Running with Spring Boot v2.2.5.RELEASE, Spring v5.2.4.RELEASE
+2020-04-28 16:13:25.099  INFO 4200 --- [main] com.blog.BlogApplicationTests            : The following profiles are active: dev
+2020-04-28 16:13:26.761  INFO 4200 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-28 16:13:26.864  INFO 4200 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-04-28 16:13:27.164  INFO 4200 --- [main] com.blog.BlogApplicationTests            : Started BlogApplicationTests in 2.31 seconds (JVM running for 2.976)
+2020-04-28 16:13:27.347  INFO 4200 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'

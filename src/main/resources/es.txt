@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "id":{
+       "type":"long"
+    },
+    "blogId":{
+       "type":"long"
+    },
+    "name":{
+      "type":"text",
+      "analyzer": "ik_max_word",
+      "search_analyzer": "ik_smart"
+    }
+  }
+}

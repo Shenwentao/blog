@@ -1,0 +1,58 @@
+server:
+  port: 8090
+#swagger文档配置开关
+swagger:
+  enable: true
+#jwt配置
+jwt:
+  secret: secret
+  expiration: 7200000
+  token: Authorization
+spring:
+  #数据库连接配置信息
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://121.43.195.75:3306/blog?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: Zxcvbnm123.
+  #redis连接配置信息
+  redis:
+    host: 10.211.55.7
+    port: 6379
+    password:
+    database: 8
+  #kafka配置信息
+  kafka:
+    #Kafka集群
+    bootstrap-servers: 10.211.55.7:9092
+    producer:
+      #Kafka提供的序列化和反序列化类
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: cn.xiaqileyu.blog.kafka.KafkaJsonSerializer
+    consumer:
+      group-id: defaultConsumerGroup
+      #是否自动提交offset
+      enable-auto-commit: true
+      #提交offset延时(接收到消息后多久提交offset)
+      auto-commit-interval: 100
+      #Kafka提供的序列化和反序列化类
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: cn.xiaqileyu.blog.kafka.KafkaJsonDeserializer
+      max-poll-records: 300
+#xxl-job配置
+xxl:
+  job:
+    accessToken:
+    admin:
+      #调度中心部署跟地址：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"。
+      addresses: http://127.0.0.1:8081/xxl-job-admin
+    #分别配置执行器的名称、ip地址、端口号。默认使用地址到注册表，如果地址是空使用ip:端口，
+    executor:
+      appname: executorBlog
+      address:
+      ip: 127.0.0.1
+      port: 9999
+      #执行器运行日志文件存储的磁盘位置，需要对该路径拥有读写权限
+      logpath: /Users/shen/Documents/logs/jobhandler
+      #执行器Log文件定期清理功能，指定日志保存天数，日志文件过期自动删除。限制至少保持3天，否则功能不生效；-1表示永不删除
+      logretentiondays: 30

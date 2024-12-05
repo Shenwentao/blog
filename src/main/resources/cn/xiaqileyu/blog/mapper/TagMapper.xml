@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xiaqileyu.blog.mapper.TagMapper">
+
+
+    <select id="selectTagByName" resultType="cn.xiaqileyu.blog.domain.dao.TagDO">
+        select
+            id id,
+            tag_name tagName
+        FROM
+            t_blog_tag
+        WHERE
+            tag_name = #{tagName}
+    </select>
+
+    <insert id="insertTag" parameterType="cn.xiaqileyu.blog.domain.dao.TagDO">
+        insert into
+        t_blog_tag(
+            id,
+            tag_name
+        )values (
+            #{id},
+            #{tagName}
+        )
+    </insert>
+
+    <update id="updateTag" parameterType="cn.xiaqileyu.blog.domain.dao.TagDO">
+        UPDATE
+        t_blog_tag
+        SET
+        <if test="tagName != null">
+            tag_name = #{tagName}
+        </if>
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="deleteTag">
+        DELETE FROM
+            t_blog_tag
+        WHERE
+            id = #{id}
+    </delete>
+
+    <select id="selectTagList" parameterType="cn.xiaqileyu.blog.domain.request.TagQueryRequest"
+            resultType="cn.xiaqileyu.blog.domain.dao.TagDO">
+        select
+            id id,
+            tag_name tagName
+        FROM
+            t_blog_tag
+        <where>
+            <if test="tagName != null">
+                tag_name like concat('%',#{tagName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

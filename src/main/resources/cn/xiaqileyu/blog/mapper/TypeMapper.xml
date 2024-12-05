@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xiaqileyu.blog.mapper.TypeMapper">
+
+
+    <select id="selectTypeByName" resultType="cn.xiaqileyu.blog.domain.dao.TypeDO">
+        select
+            id id,
+            type_name typeName
+        FROM
+            t_blog_type
+        WHERE
+            type_name = #{typeName}
+    </select>
+
+    <insert id="insertType" parameterType="cn.xiaqileyu.blog.domain.dao.TypeDO">
+        insert into
+        t_blog_type(
+            id,
+            type_name
+        )values (
+            #{id},
+            #{typeName}
+        )
+    </insert>
+
+    <update id="updateType" parameterType="cn.xiaqileyu.blog.domain.dao.TypeDO">
+        UPDATE
+        t_blog_type
+        SET
+        <if test="typeName != null">
+            type_name = #{typeName}
+        </if>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="deleteType">
+        DELETE FROM
+            t_blog_type
+        WHERE
+            id = #{id}
+    </delete>
+
+    <select id="selectTypeList" parameterType="cn.xiaqileyu.blog.domain.request.TypeQueryRequest"
+            resultType="cn.xiaqileyu.blog.domain.dao.TypeDO">
+        select
+        id id,
+        type_name typeName
+        FROM
+        t_blog_type
+        <where>
+            <if test="typeName != null">
+                type_name like concat('%',#{typeName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

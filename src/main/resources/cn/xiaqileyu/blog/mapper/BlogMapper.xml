@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xiaqileyu.blog.mapper.BlogMapper">
+
+    <resultMap type="cn.xiaqileyu.blog.domain.dao.BlogDO" id="BlogResultMap">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="visitNumber" column="visit_number"/>
+        <result property="isPublished" column="is_published"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="userId" column="user_id"/>
+        <result property="typeId" column="type_id"/>
+        <result property="tagId" column="tag_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="description" column="description"/>
+        <result property="firstPicture" column="first_picture"/>
+    </resultMap>
+
+    <select id="selectOneBlog" resultType="cn.xiaqileyu.blog.domain.dao.BlogDO" resultMap="BlogResultMap">
+        select
+            id,
+            title,
+            content,
+            visit_number,
+            is_published,
+            is_delete,
+            user_id,
+            type_id,
+            tag_id,
+            description,
+            first_picture,
+            create_time,
+            update_time
+        FROM
+            t_blog_info
+        WHERE
+            is_delete = 0
+            <if test="title != null">
+                and title = #{title}
+            </if>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+    </select>
+
+    <insert id="insertBlog" useGeneratedKeys="true" keyProperty="id" parameterType="cn.xiaqileyu.blog.domain.dao.BlogDO">
+        INSERT INTO
+        t_blog_info(
+            id,
+            title,
+            content,
+            visit_number,
+            is_published,
+            is_delete,
+            user_id,
+            type_id,
+            tag_id,
+            description,
+            first_picture,
+            create_time,
+            update_time
+        )VALUES (
+          #{id},
+          #{title},
+          #{content},
+          #{visitNumber},
+          #{isPublished},
+          #{isDelete},
+          #{userId},
+          #{typeId},
+          #{tagId},
+          #{description},
+          #{firstPicture},
+          NOW(),
+          NOW()
+        )
+    </insert>
+
+    <update id="updateBlog" parameterType="cn.xiaqileyu.blog.domain.dao.BlogDO">
+        UPDATE
+        t_blog_info
+        SET
+        <if test="title != null">
+            title = #{title},
+        </if>
+        <if test="content != null">
+            content = #{content},
+        </if>
+        <if test="visitNumber != null">
+            visit_number = #{visitNumber},
+        </if>
+        <if test="isPublished != null">
+            is_published = #{isPublished},
+        </if>
+        <if test="isDelete != null">
+            is_delete = #{isDelete},
+        </if>
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="typeId != null">
+            type_id = #{typeId},
+        </if>
+        <if test="tagId != null">
+            tag_id = #{tagId},
+        </if>
+        <if test="description != null">
+            description = #{description},
+        </if>
+        <if test="firstPicture != null">
+            first_picture = #{firstPicture},
+        </if>
+        update_time = NOW()
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="deleteRecycleBlog">
+        delete
+        from
+            t_blog_info
+        where
+            is_delete = 1
+        and
+            <![CDATA[update_time  <= #{date}]]>
+    </delete>
+</mapper>

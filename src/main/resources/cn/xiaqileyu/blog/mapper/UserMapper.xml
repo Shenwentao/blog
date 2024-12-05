@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xiaqileyu.blog.mapper.UserMapper">
+
+    <resultMap type="cn.xiaqileyu.blog.domain.dao.UserDO" id="UserResultMap">
+        <id property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="nickname" column="nickname"/>
+        <result property="roleName" column="role"/>
+        <result property="phone" column="phone"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="selectUserByName" resultType="cn.xiaqileyu.blog.domain.dao.UserDO" resultMap="UserResultMap">
+        select
+            id,
+            user_name,
+            password,
+            nickname,
+            role,
+            phone,
+            create_time,
+            update_time
+        FROM
+            t_user_info
+        WHERE
+            user_name = #{userName}
+    </select>
+
+    <insert id="insertUserInfo" parameterType="cn.xiaqileyu.blog.domain.dao.UserDO">
+        INSERT INTO
+        t_user_info(
+          id,
+          user_name,
+          password,
+          nickname,
+          role,
+          phone,
+          create_time,
+          update_time
+        )VALUES (
+          #{id},
+          #{userName},
+          #{password},
+          #{nickname},
+          #{roleName},
+          #{phone},
+          NOW(),
+          NOW()
+        )
+    </insert>
+
+    <update id="updateUserInfo" parameterType="cn.xiaqileyu.blog.domain.dao.UserDO">
+        UPDATE
+            t_user_info
+        SET
+            <if test="userName != null">
+                user_name = #{userName},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="roleName != null">
+                role = #{roleName},
+            </if>
+                update_time = NOW()
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="deleteUserInfo">
+        DELETE FROM
+            t_user_info
+        WHERE
+            id = #{id}
+    </delete>
+
+    <select id="selectUserList" parameterType="cn.xiaqileyu.blog.domain.request.UserQueryRequest" resultMap="UserResultMap">
+        select
+            id,
+            user_name,
+            password,
+            nickname,
+            role,
+            phone,
+            create_time,
+            update_time
+        FROM
+            t_user_info
+        <where>
+            <if test="userName != null">
+                user_name like concat('%',#{userName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

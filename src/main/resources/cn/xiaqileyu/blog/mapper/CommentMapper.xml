@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xiaqileyu.blog.mapper.CommentMapper">
+
+
+    <insert id="insertComment" parameterType="cn.xiaqileyu.blog.domain.dao.CommentDO">
+        insert into
+        t_comment_info(
+            id,
+            user_id,
+            blog_id,
+            content,
+            create_time
+        )values (
+            #{id},
+            #{userId},
+            #{blogId},
+            #{content},
+            NOW()
+        )
+    </insert>
+
+    <select id="selectCommentList" parameterType="cn.xiaqileyu.blog.domain.dao.CommentDO"
+            resultType="cn.xiaqileyu.blog.domain.vo.CommentVO">
+        select
+            c.id id,
+            c.content content,
+            u.user_name userName,
+            c.create_time createTime
+        FROM
+            t_comment_info c
+        left join
+            t_user_info u
+        on
+            c.user_id = u.id
+        and
+            c.blog_id = #{blogId}
+    </select>
+</mapper>

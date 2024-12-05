@@ -69,4 +69,8 @@ public class BlogController {
     public ResultVO<Object> publishBlog(@RequestBody @Valid IdRequest request) {
         return blogService.publishBlog(request);
     }
+
+    public static void main(String[] args) {
+        System.out.println("111");
+    }
 }
